@@ -3,6 +3,10 @@
  */
 var App = (function () {
 
+    /**
+     * Module public content
+     * @type {{}}
+     */
     var self = {};
 
     /**
@@ -21,7 +25,7 @@ var App = (function () {
      * Preload function
      */
     self.preload = function () {
-        console.log(game);
+        App.MainMenu.init();
     };
 
     /**
