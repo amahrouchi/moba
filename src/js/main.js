@@ -1,3 +1,2 @@
-var toto = 'angelo';
-var titi = 'angelo';
-var tutu = 'angeloooiiii';
+// Main JS file
+console.log('Main JS')
