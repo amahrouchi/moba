@@ -8,7 +8,7 @@ var gulp         = require('gulp'),
 ;
 
 // Build app CSS
-gulp.task('sass', function () {
+gulp.task('app:sass', function () {
     return gulp.src('./src/scss/**/*.scss')
         .pipe(sass(({outputStyle : 'compressed'})).on('error', sass.logError))
         .pipe(concat('app.css'))
@@ -16,32 +16,36 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./src/public/css'));
 });
 
-// gulp.task('sass:watch', ['sass'], function () {
-//     gulp.watch('./src/scss/**/*.scss', ['sass']);
-// });
-
 // Build app JS
-gulp.task('js', function () {
-    return gulp.src(['./src/js/**/*.js', './node_modules/phaser-ce/build/phaser.min.js'])
+gulp.task('app:js', function () {
+    return gulp.src('./src/js/**/*.js')
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(gulp.dest('./src/public/js'));
 });
 
-// gulp.task('js:watch', ['js'], function () {
-//     gulp.watch('./src/js/**/*.js', ['js']);
-// });
+// Vendor js
+gulp.task('vendor:js', function () {
+    return gulp.src(['./node_modules/phaser-ce/build/phaser.min.js'])
+        .pipe(concat('vendor.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./src/public/js'));
+});
 
 // Default task
-gulp.task('watch', ['sass', 'js'], function () {
+gulp.task('watch', ['app:sass', 'app:js'], function () {
     gulp.watch(
         [
             './src/js/**/*.js',
             './src/scss/**/*.scss'
         ],
-        ['sass', 'js']
+        ['app:sass', 'app:js']
     );
 });
 
 // Default task
-gulp.task('default', ['saas', 'js']);
+gulp.task('default', [
+    'app:sass',
+    'app:js',
+    'vendor:js'
+]);
