@@ -43,7 +43,7 @@ App.States.CharacterSelection = (function (self) {
     function createMenu() {
 
         // Game name
-        var title = App.Helpers.Common.addText(
+        App.Helpers.Common.addText(
             'Character selection',
             game.world.centerX,
             game.world.centerY - App.HEIGHT / 4,

@@ -43,7 +43,7 @@ App.States.MainMenu = (function (self) {
     function createMenu() {
 
         // Game name
-        var title = App.Helpers.Common.addText(
+        App.Helpers.Common.addText(
             App.NAME,
             game.world.centerX,
             game.world.centerY - App.HEIGHT / 4,
