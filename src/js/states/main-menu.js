@@ -13,6 +13,8 @@ App.States.MainMenu = (function (self) {
      */
     self.preload = function () {
         console.log('Preload main menu');
+
+        game.load.image('parchment', 'img/main-menu/parchment.png');
     };
 
     /**
@@ -20,6 +22,12 @@ App.States.MainMenu = (function (self) {
      */
     self.create = function () {
         console.log('Create main menu');
+
+        // game.stage.backgroundColor = "#FFFFFF";
+        var parchment = game.add.sprite(-100, -150, 'parchment');
+        parchment.scale.setTo(2.5);
+        parchment.x = (App.WIDTH - parchment.width) / 2;
+        parchment.y = (App.HEIGHT - parchment.height) / 2;
     };
 
     /**
