@@ -14,16 +14,8 @@ App.States.MainMenu = (function (self) {
     self.preload = function () {
         game.load.image('parchment', 'img/main-menu/parchment.png');
 
-        WebFontConfig = {
-            active: function () {
-                game.time.events.add(Phaser.Timer.SECOND, createMenu, window);
-            },
-            google: {
-                families: ['Tangerine']
-            }
-        };
-
-        game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        WebFontConfig = App.Helpers.Common.getWebFontConfig(createMenu, ['Tangerine']);
+        App.Helpers.Common.loadGoogleWebFont();
     };
 
     /**
@@ -32,7 +24,6 @@ App.States.MainMenu = (function (self) {
     self.create = function () {
 
         // Menu background image
-        // game.stage.backgroundColor = "#FFFFFF";
         var parchment = game.add.sprite(-100, -150, 'parchment');
         parchment.scale.setTo(2.5);
         parchment.x = (App.WIDTH - parchment.width) / 2;
@@ -43,7 +34,7 @@ App.States.MainMenu = (function (self) {
      * Update callback for the menu
      */
     self.update = function () {
-        // console.log('Update main menu');
+        // Nothing at the moment
     };
 
     /**
@@ -52,7 +43,7 @@ App.States.MainMenu = (function (self) {
     function createMenu() {
 
         // Game name
-        var title = addText(
+        var title = App.Helpers.Common.addText(
             App.NAME,
             game.world.centerX,
             game.world.centerY - App.HEIGHT / 4,
@@ -60,7 +51,7 @@ App.States.MainMenu = (function (self) {
         );
 
         // Play button
-        var play = addText(
+        var play = App.Helpers.Common.addText(
             'Play',
             game.world.centerX,
             game.world.centerY,
@@ -71,7 +62,7 @@ App.States.MainMenu = (function (self) {
         play.events.onInputDown.add(clickPlay, window);
 
         // Play button
-        var options = addText(
+        var options = App.Helpers.Common.addText(
             'Options',
             game.world.centerX,
             game.world.centerY + 80,
@@ -80,30 +71,6 @@ App.States.MainMenu = (function (self) {
         options.events.onInputOver.add(overMenu, window);
         options.events.onInputOut.add(outMenu, window);
         options.events.onInputDown.add(clickOptions, window);
-    }
-
-    /**
-     * Add text to the layout
-     * @param {string} text
-     * @param {number} x
-     * @param {number} y
-     * @param {number} fontSize
-     *
-     * @return {Phaser.Text}
-     */
-    function addText(text, x, y, fontSize) {
-        var textBlock = game.add.text(
-            x,
-            y,
-            text
-        );
-        textBlock.anchor.setTo(0.5); // Offsets the anchor point off the text block
-        textBlock.font = 'Tangerine';
-        textBlock.fontSize = fontSize;
-        textBlock.padding.set(10, 16);
-        textBlock.inputEnabled = true;
-
-        return textBlock;
     }
 
     function overMenu(item) {
