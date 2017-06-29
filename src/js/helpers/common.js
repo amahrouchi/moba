@@ -14,7 +14,7 @@ App.Helpers.Common = (function (self) {
     self.getWebFontConfig = function (callback, fonts) {
         return {
             active: function () {
-                game.time.events.add(Phaser.Timer.SECOND, callback, window);
+                game.time.events.add(0, callback, window);
             },
             google: {
                 families: fonts

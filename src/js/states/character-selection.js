@@ -13,7 +13,8 @@ App.States.CharacterSelection = (function (self) {
      * @type {[*]}
      */
     var allCharacters = [
-        App.Characters.Knight
+        App.Characters.Knight,
+        App.Characters.Duellist
     ];
 
     /**
@@ -43,10 +44,22 @@ App.States.CharacterSelection = (function (self) {
         parchment.x = (App.WIDTH - parchment.width) / 2;
         parchment.y = (App.HEIGHT - parchment.height) / 2;
 
+        console.log(App); // TODO: remove this
+
+        var charNb = 1;
         for (var key in allCharacters) {
+
+            // TODO: mauvais sprite display -> passage par reference ???
+
             var charDetails = allCharacters[key];
 
-            var char = game.add.sprite(0, 0, charDetails.name, 0);
+            var char = game.add.sprite(
+                game.world.width * charNb / (allCharacters.length + 1),
+                game.world.centerY,
+                charDetails.name,
+                0
+            );
+            char.anchor.setTo(0.5);
             char.scale.set(3);
 
             // Animate the character
@@ -57,6 +70,8 @@ App.States.CharacterSelection = (function (self) {
                 true
             );
             char.animations.play('walk');
+
+            charNb++;
         }
     };
 
