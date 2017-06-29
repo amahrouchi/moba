@@ -41,37 +41,60 @@ App.States.MainMenu = (function (self) {
      * Update callback for the menu
      */
     self.update = function () {
-        console.log('Update main menu');
+        // console.log('Update main menu');
     };
 
+    /**
+     * Creates the menu
+     */
     function createMenu() {
-        console.log('test !!');
 
-        var text = game.add.text(game.world.centerX, game.world.centerY, "Parchemin");
-        text.anchor.setTo(0.5);
+        // Game name
+        var title = addText(
+            App.NAME,
+            game.world.centerX,
+            game.world.centerY - App.HEIGHT / 4,
+            150
+        );
+        
+        // Play button
+        var play = addText(
+            'Play',
+            game.world.centerX,
+            game.world.centerY,
+            75
+        );
 
-        text.font = 'Tangerine';
-        text.fontSize = 150;
+        // Play button
+        var options = addText(
+            'Options',
+            game.world.centerX,
+            game.world.centerY + 80,
+            75
+        );
+    }
 
-        //  If we don't set the padding the font gets cut off
-        //  Comment out the line below to see the effect
-        text.padding.set(10, 16);
+    /**
+     * Add text to the layout
+     * @param {string} text
+     * @param {number} x
+     * @param {number} y
+     * @param {number} fontSize
+     *
+     * @return {Phaser.Text}
+     */
+    function addText(text, x, y, fontSize) {
+        var textBlock = game.add.text(
+            x,
+            y,
+            text
+        );
+        textBlock.anchor.setTo(0.5); // Offsets the anchor point off the text block
+        textBlock.font = 'Tangerine';
+        textBlock.fontSize = fontSize;
+        textBlock.padding.set(10, 16);
 
-        // var grd = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
-        // grd.addColorStop(0, '#8ED6FF');
-        // grd.addColorStop(1, '#004CB3');
-        // text.fill = grd;
-        //
-        // text.align = 'center';
-        // text.stroke = '#000000';
-        // text.strokeThickness = 2;
-        // text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-        //
-        // text.inputEnabled = true;
-        // text.input.enableDrag();
-        //
-        // text.events.onInputOver.add(over, this);
-        // text.events.onInputOut.add(out, this);
+        return textBlock;
     }
     
     return self;
