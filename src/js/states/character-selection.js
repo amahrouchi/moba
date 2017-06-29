@@ -49,13 +49,14 @@ App.States.CharacterSelection = (function (self) {
         var charNb = 1;
         for (var key in allCharacters) {
 
+            var initialFrame = 12;
             var charDetails = allCharacters[key];
 
             var char = game.add.sprite(
                 game.world.width * charNb / (allCharacters.length + 1),
                 game.world.centerY,
                 charDetails.name,
-                0
+                initialFrame
             );
             char.anchor.setTo(0.5);
             char.scale.set(4);
@@ -77,7 +78,7 @@ App.States.CharacterSelection = (function (self) {
 
             char.events.onInputOut.add(function (item) {
                 item.animations.stop('walk');
-                item.frame = 0;
+                item.frame = initialFrame;
                 game.canvas.style.cursor = "default";
             }, window);
 
