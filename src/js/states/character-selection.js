@@ -59,6 +59,7 @@ App.States.CharacterSelection = (function (self) {
             );
             char.anchor.setTo(0.5);
             char.scale.set(4);
+            char.inputEnabled = true;
 
             // Animate the character
             char.animations.add(
@@ -67,7 +68,18 @@ App.States.CharacterSelection = (function (self) {
                 charDetails.animations.frontWalk.speed,
                 true
             );
-            char.animations.play('walk');
+
+            // Animate the char on over
+            char.events.onInputOver.add(function (item) {
+                item.animations.play('walk');
+                game.canvas.style.cursor = "pointer";
+            }, window);
+
+            char.events.onInputOut.add(function (item) {
+                item.animations.stop('walk');
+                item.frame = 0;
+                game.canvas.style.cursor = "default";
+            }, window);
 
             charNb++;
         }
