@@ -15,7 +15,9 @@ App.States.MainMenu = (function (self) {
         game.load.image('parchment', 'img/main-menu/parchment.png');
 
         WebFontConfig = {
-            active: function() { game.time.events.add(Phaser.Timer.SECOND, createMenu, window); },
+            active: function () {
+                game.time.events.add(Phaser.Timer.SECOND, createMenu, window);
+            },
             google: {
                 families: ['Tangerine']
             }
@@ -56,7 +58,7 @@ App.States.MainMenu = (function (self) {
             game.world.centerY - App.HEIGHT / 4,
             150
         );
-        
+
         // Play button
         var play = addText(
             'Play',
@@ -64,6 +66,9 @@ App.States.MainMenu = (function (self) {
             game.world.centerY,
             75
         );
+        play.events.onInputOver.add(overMenu, window);
+        play.events.onInputOut.add(outMenu, window);
+        play.events.onInputDown.add(clickPlay, window);
 
         // Play button
         var options = addText(
@@ -72,6 +77,9 @@ App.States.MainMenu = (function (self) {
             game.world.centerY + 80,
             75
         );
+        options.events.onInputOver.add(overMenu, window);
+        options.events.onInputOut.add(outMenu, window);
+        options.events.onInputDown.add(clickOptions, window);
     }
 
     /**
@@ -93,10 +101,29 @@ App.States.MainMenu = (function (self) {
         textBlock.font = 'Tangerine';
         textBlock.fontSize = fontSize;
         textBlock.padding.set(10, 16);
+        textBlock.inputEnabled = true;
 
         return textBlock;
     }
-    
+
+    function overMenu(item) {
+        item.fill = '#cc0000';
+        game.canvas.style.cursor = "pointer";
+    }
+
+    function outMenu(item) {
+        item.fill = '#000000';
+        game.canvas.style.cursor = "default";
+    }
+
+    function clickPlay(item) {
+        console.log('Click Play');
+    }
+
+    function clickOptions(item) {
+        console.log('Click Options');
+    }
+
     return self;
 
 })(App.States.MainMenu || {});
