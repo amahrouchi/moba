@@ -84,7 +84,7 @@ App.States.MainMenu = (function (self) {
     }
 
     function clickPlay(item) {
-        console.log('Click Play');
+        game.state.start('character-selection');
     }
 
     function clickOptions(item) {
