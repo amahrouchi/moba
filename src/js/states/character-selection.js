@@ -52,6 +52,7 @@ App.States.CharacterSelection = (function (self) {
             var initialFrame = 12;
             var charDetails = allCharacters[key];
 
+            // Display char image
             var char = game.add.sprite(
                 game.world.width * charNb / (allCharacters.length + 1),
                 game.world.centerY,
