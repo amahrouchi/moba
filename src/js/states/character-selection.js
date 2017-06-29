@@ -9,10 +9,24 @@ App.States = App.States || {};
 App.States.CharacterSelection = (function (self) {
 
     /**
+     * List of all available characters
+     * @type {[*]}
+     */
+    var allCharacters = [
+        App.Characters.Knight
+    ];
+
+    /**
      * Preload callback
      */
     self.preload = function () {
+        // Load background
         game.load.image('parchment', 'img/main-menu/parchment.png');
+
+        // Load characters sprite
+        for (var key in allCharacters) {
+            game.load.spritesheet(allCharacters[key].name, allCharacters[key].sprite, 32, 48, 16);
+        }
 
         WebFontConfig = App.Helpers.Common.getWebFontConfig(createMenu, ['Tangerine']);
         App.Helpers.Common.loadGoogleWebFont();
@@ -28,6 +42,22 @@ App.States.CharacterSelection = (function (self) {
         parchment.scale.setTo(2.5);
         parchment.x = (App.WIDTH - parchment.width) / 2;
         parchment.y = (App.HEIGHT - parchment.height) / 2;
+
+        for (var key in allCharacters) {
+            var charDetails = allCharacters[key];
+
+            var char = game.add.sprite(0, 0, charDetails.name, 0);
+            char.scale.set(3);
+
+            // Animate the character
+            char.animations.add(
+                'walk',
+                charDetails.animations.frontWalk.frames,
+                charDetails.animations.frontWalk.speed,
+                true
+            );
+            char.animations.play('walk');
+        }
     };
 
     /**
