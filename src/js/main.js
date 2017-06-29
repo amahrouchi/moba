@@ -12,3 +12,5 @@ var App = {
 };
 
 var game = new Phaser.Game(App.WIDTH, App.HEIGHT, Phaser.AUTO, 'moba');
+
+var WebFontConfig = {};
