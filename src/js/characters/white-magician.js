@@ -3,7 +3,7 @@
 var App = App || {};
 App.Characters = App.Characters || {};
 
-App.Characters.Knight = (function (self) {
+App.Characters.WhiteMagician = (function (self) {
 
     self.__proto__ = App.Characters.Character;
 
@@ -11,13 +11,13 @@ App.Characters.Knight = (function (self) {
      * The character name
      * @type {string}
      */
-    self.name = 'Knight';
+    self.name = 'White Magician';
 
     /**
      * The sprite file
      * @type {string}
      */
-    self.sprite = 'img/characters/knight.png';
+    self.sprite = 'img/characters/white_magician.png';
 
     return self;
-})(App.Characters.Knight || {});
+})(App.Characters.WhiteMagician || {});

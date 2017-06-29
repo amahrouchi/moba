@@ -14,7 +14,9 @@ App.States.CharacterSelection = (function (self) {
      */
     var allCharacters = [
         App.Characters.Knight,
-        App.Characters.Duellist
+        App.Characters.Duellist,
+        App.Characters.BlackMagician,
+        App.Characters.WhiteMagician
     ];
 
     /**
@@ -44,12 +46,8 @@ App.States.CharacterSelection = (function (self) {
         parchment.x = (App.WIDTH - parchment.width) / 2;
         parchment.y = (App.HEIGHT - parchment.height) / 2;
 
-        console.log(App); // TODO: remove this
-
         var charNb = 1;
         for (var key in allCharacters) {
-
-            // TODO: mauvais sprite display -> passage par reference ???
 
             var charDetails = allCharacters[key];
 
@@ -60,7 +58,7 @@ App.States.CharacterSelection = (function (self) {
                 0
             );
             char.anchor.setTo(0.5);
-            char.scale.set(3);
+            char.scale.set(4);
 
             // Animate the character
             char.animations.add(

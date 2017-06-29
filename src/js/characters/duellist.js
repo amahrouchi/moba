@@ -5,6 +5,8 @@ App.Characters = App.Characters || {};
 
 App.Characters.Duellist = (function (self) {
 
+    self.__proto__ = App.Characters.Character;
+
     /**
      * The character name
      * @type {string}
@@ -18,4 +20,4 @@ App.Characters.Duellist = (function (self) {
     self.sprite = 'img/characters/duellist.png';
 
     return self;
-})(App.Characters.Character || {});
+})(App.Characters.Duellist || {});
