@@ -63,7 +63,7 @@ App.States.CharacterSelection = (function (self) {
             char.scale.set(4);
             char.inputEnabled = true;
 
-            // Animate the character
+            // Character animation
             char.animations.add(
                 'walk',
                 charDetails.animations.frontWalk.frames,
@@ -72,16 +72,22 @@ App.States.CharacterSelection = (function (self) {
             );
 
             // Animate the char on over
-            char.events.onInputOver.add(function (item) {
-                item.animations.play('walk');
-                game.canvas.style.cursor = "pointer";
-            }, window);
+            char.events.onInputOver.add(playCharAnimation.bind(null, char), window);
+            char.events.onInputOut.add(stopCharAnimation.bind(null, char, initialFrame), window);
 
-            char.events.onInputOut.add(function (item) {
-                item.animations.stop('walk');
-                item.frame = initialFrame;
-                game.canvas.style.cursor = "default";
-            }, window);
+
+            // Display char name
+            var charName = App.Helpers.Common.addText(
+                charDetails.name,
+                game.world.width * charNb / (allCharacters.length + 1),
+                game.world.centerY + 140,
+                40
+            );
+            charName.inputEnabled = true;
+
+            // Animate the char on over
+            charName.events.onInputOver.add(playCharAnimation.bind(null, char), window);
+            charName.events.onInputOut.add(stopCharAnimation.bind(null, char, initialFrame), window);
 
             charNb++;
         }
@@ -104,8 +110,28 @@ App.States.CharacterSelection = (function (self) {
             'Character selection',
             game.world.centerX,
             game.world.centerY - App.HEIGHT / 4,
-            150
+            100
         );
+    }
+
+    /**
+     * Play the character animation
+     * @param item
+     */
+    function playCharAnimation (item) {
+        item.animations.play('walk');
+        game.canvas.style.cursor = "pointer";
+    }
+
+    /**
+     * Stop the character animation
+     * @param item
+     * @param initialFrame
+     */
+    function stopCharAnimation(item, initialFrame) {
+        item.animations.stop('walk');
+        item.frame = initialFrame;
+        game.canvas.style.cursor = "default";
     }
 
     return self;
