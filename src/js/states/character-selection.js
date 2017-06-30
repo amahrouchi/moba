@@ -31,7 +31,7 @@ App.States.CharacterSelection = (function (self) {
             game.load.spritesheet(allCharacters[key].name, allCharacters[key].sprite, 32, 48, 16);
         }
 
-        WebFontConfig = App.Helpers.Common.getWebFontConfig(createMenu, ['Tangerine']);
+        WebFontConfig = App.Helpers.Common.getWebFontConfig(function(){}, ['Tangerine']);
         App.Helpers.Common.loadGoogleWebFont();
     };
 
@@ -45,6 +45,14 @@ App.States.CharacterSelection = (function (self) {
         parchment.scale.setTo(2.5);
         parchment.x = (App.WIDTH - parchment.width) / 2;
         parchment.y = (App.HEIGHT - parchment.height) / 2;
+
+        // Game name
+        App.Helpers.Common.addText(
+            'Character selection',
+            game.world.centerX,
+            game.world.centerY - App.HEIGHT / 4,
+            150
+        );
 
         var charNb = 1;
         for (var key in allCharacters) {
@@ -75,7 +83,6 @@ App.States.CharacterSelection = (function (self) {
             char.events.onInputOver.add(playCharAnimation.bind(null, char), window);
             char.events.onInputOut.add(stopCharAnimation.bind(null, char, initialFrame), window);
 
-
             // Display char name
             var charName = App.Helpers.Common.addText(
                 charDetails.name,
@@ -99,20 +106,6 @@ App.States.CharacterSelection = (function (self) {
     self.update = function () {
         // Nothing at the moment
     };
-
-    /**
-     * Creates the menu
-     */
-    function createMenu() {
-
-        // Game name
-        App.Helpers.Common.addText(
-            'Character selection',
-            game.world.centerX,
-            game.world.centerY - App.HEIGHT / 4,
-            100
-        );
-    }
 
     /**
      * Play the character animation
