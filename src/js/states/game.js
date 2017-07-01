@@ -14,6 +14,15 @@ App.States.Game = (function (self) {
      */
     self.currentChar = null;
 
+    self.player = null;
+
+    self.groundLayer = null;
+    self.aboveLayer = null;
+    self.collisionLayer = null;
+    self.behindLayer = null;
+
+    self.cursors = null;
+
     /**
      * Preload callback
      */
@@ -34,23 +43,23 @@ App.States.Game = (function (self) {
         map.addTilesetImage('Bosquet', 'mapTiles');
 
         // Create the layers
-        var groundLayer = map.createLayer('Ground');
-        var aboveLayer = map.createLayer('PlayerAbove');
-        var collisionLayer = map.createLayer('Collision');
-        var behindLayer = map.createLayer('PlayerBehind');
+        self.groundLayer = map.createLayer('Ground');
+        self.aboveLayer = map.createLayer('PlayerAbove');
+        self.player = game.add.sprite(game.world.centerX, App.HEIGHT - 50, self.currentChar.name, 12);
+        self.collisionLayer = map.createLayer('Collision');
+        self.behindLayer = map.createLayer('PlayerBehind');
 
         map.setCollisionBetween(1, 100000, true, 'Collision');
-        groundLayer.resizeWorld();
+        self.groundLayer.resizeWorld();
 
         //create player
-        var player = game.add.sprite(game.world.centerX, App.HEIGHT - 50, self.currentChar.name, 12);
-        this.game.physics.arcade.enable(this.player);
+        game.physics.arcade.enable(self.player);
 
         //the camera will follow the player in the world
         // this.game.camera.follow(this.player);
 
         //move player with cursor keys
-        this.cursors = this.game.input.keyboard.createCursorKeys();
+        self.cursors = game.input.keyboard.createCursorKeys();
 
 
     };
@@ -59,7 +68,23 @@ App.States.Game = (function (self) {
      * Update callback
      */
     self.update = function () {
-        // console.log('Update game');
+        self.player.body.velocity.y = 0;
+        self.player.body.velocity.x = 0;
+
+        if(self.cursors.up.isDown) {
+            self.player.body.velocity.y -= 100;
+        }
+        else if(self.cursors.down.isDown) {
+            self.player.body.velocity.y += 100;
+        }
+        if(self.cursors.left.isDown) {
+            self.player.body.velocity.x -= 100;
+        }
+        else if(self.cursors.right.isDown) {
+            self.player.body.velocity.x += 100;
+        }
+
+        game.physics.arcade.collide(self.player, self.collisionLayer);
     };
 
     return self;
