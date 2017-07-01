@@ -82,6 +82,7 @@ App.States.CharacterSelection = (function (self) {
             // Animate the char on over
             char.events.onInputOver.add(playCharAnimation.bind(null, char), window);
             char.events.onInputOut.add(stopCharAnimation.bind(null, char, initialFrame), window);
+            char.events.onInputUp.add(selectChar.bind(null, charDetails), window);
 
             // Display char name
             var charName = App.Helpers.Common.addText(
@@ -95,6 +96,7 @@ App.States.CharacterSelection = (function (self) {
             // Animate the char on over
             charName.events.onInputOver.add(playCharAnimation.bind(null, char), window);
             charName.events.onInputOut.add(stopCharAnimation.bind(null, char, initialFrame), window);
+            charName.events.onInputUp.add(selectChar.bind(null, charDetails), window);
 
             charNb++;
         }
@@ -125,6 +127,11 @@ App.States.CharacterSelection = (function (self) {
         item.animations.stop('walk');
         item.frame = initialFrame;
         game.canvas.style.cursor = "default";
+    }
+
+    function selectChar(item) {
+        App.States.Game.currentChar = item;
+        game.state.start('game');
     }
 
     return self;

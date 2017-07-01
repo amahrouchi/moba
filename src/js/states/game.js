@@ -9,24 +9,30 @@ App.States = App.States || {};
 App.States.Game = (function (self) {
 
     /**
+     * The character selected by the player
+     * @type {null}
+     */
+    self.currentChar = null;
+
+    /**
      * Preload callback
      */
     self.preload = function () {
-        console.log('Preload game');
+        // console.log('Preload game');
     };
 
     /**
      * Create callback
      */
     self.create = function () {
-        console.log('Create game');
+        // console.log('Create game');
     };
 
     /**
      * Update callback
      */
     self.update = function () {
-        console.log('Update game');
+        // console.log('Update game');
     };
 
     return self;
