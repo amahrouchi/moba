@@ -14,13 +14,40 @@ App.States.Game = (function (self) {
      */
     self.currentChar = null;
 
+    /**
+     * The game player
+     * @type {null}
+     */
     self.player = null;
 
+    /**
+     * The ground layer
+     * @type {null}
+     */
     self.groundLayer = null;
+
+    /**
+     * The above layer
+     * @type {null}
+     */
     self.aboveLayer = null;
+
+    /**
+     * The collision layer
+     * @type {null}
+     */
     self.collisionLayer = null;
+
+    /**
+     * The foreground layer
+     * @type {null}
+     */
     self.behindLayer = null;
 
+    /**
+     * The cursors
+     * @type {null}
+     */
     self.cursors = null;
 
     /**
@@ -49,19 +76,21 @@ App.States.Game = (function (self) {
         self.collisionLayer = map.createLayer('Collision');
         self.behindLayer = map.createLayer('PlayerBehind');
 
+        // Init collision layer
         map.setCollisionBetween(1, 100000, true, 'Collision');
+
+        // Resize the world
         self.groundLayer.resizeWorld();
 
         //create player
         game.physics.arcade.enable(self.player);
 
-        //the camera will follow the player in the world
-        // this.game.camera.follow(this.player);
-
         //move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
-
-
+        
+        // TODO: Set collision on the map borders
+        // TODO: animate the char when moving
+        // TODO: Factorize code inside the Character module (animations, movement bindings,...)
     };
 
     /**
