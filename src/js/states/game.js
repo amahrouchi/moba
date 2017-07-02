@@ -90,9 +90,9 @@ App.States.Game = (function (self) {
         //move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
         
-        // TODO: animate the char when moving
         // TODO: Factorize code inside the Character module (animations, movement bindings,...)
         // TODO: Factorize code inside the Map module (sprite retrieval, layer init,...)
+        // TODO: animate the char when moving
     };
 
     /**
