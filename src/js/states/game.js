@@ -84,11 +84,11 @@ App.States.Game = (function (self) {
 
         //create player
         game.physics.arcade.enable(self.player);
+        self.player.body.collideWorldBounds = true;
 
         //move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
         
-        // TODO: Set collision on the map borders
         // TODO: animate the char when moving
         // TODO: Factorize code inside the Character module (animations, movement bindings,...)
     };
