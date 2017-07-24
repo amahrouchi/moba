@@ -6,7 +6,8 @@ var gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     minCss       = require('gulp-minify-css'),
     sourcemaps   = require('gulp-sourcemaps'),
-    babel        = require('gulp-babel')
+    babel        = require('gulp-babel'),
+    browserify   = require('gulp-browserify')
 ;
 
 // Build app CSS
@@ -24,10 +25,16 @@ gulp.task('app:sass', function () {
 gulp.task('app:js', function () {
     return gulp.src('./src/js/**/*.js')
         .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(concat('app.js'))
-        .pipe(babel())
-        .pipe(uglify())
+        .pipe(browserify({
+            insertGlobals : true,
+            debug : !gulp.env.production
+        }))
         .pipe(sourcemaps.write('.'))
+        // .pipe(uglify())
         .pipe(gulp.dest('./src/public/js'));
 });
 
