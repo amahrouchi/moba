@@ -128,9 +128,6 @@ App.States.Game = (function (self) {
      */
     self.update = function () {
 
-        /*
-         * TODO: put the animations set up in the same module
-         */
 
         self.player.body.velocity.y = 0;
         self.player.body.velocity.x = 0;
@@ -149,6 +146,10 @@ App.States.Game = (function (self) {
             self.player.body.velocity.x += App.Characters.Character.globalMovementSpeed;
         }
 
+
+        /*
+         * TODO: put the animations set up in the Character module
+         */
         if(self.cursors.left.isDown) {
             self.player.animations.stop('frontWalk');
             self.player.animations.stop('backWalk');
