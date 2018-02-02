@@ -40,5 +40,11 @@ App.Characters.Character = (function (self) {
         }
     };
 
+    /**
+     * The character's movement speed
+     * @type {int}
+     */
+    self.globalMovementSpeed = 100;
+
     return self;
 })(App.Characters.Character || {});

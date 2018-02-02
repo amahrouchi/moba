@@ -129,7 +129,6 @@ App.States.Game = (function (self) {
     self.update = function () {
 
         /*
-         * TODO: Factoriwe thism put the global speed in the character module
          * TODO: put the animations set up in the same module
          */
 
@@ -137,17 +136,17 @@ App.States.Game = (function (self) {
         self.player.body.velocity.x = 0;
 
         if(self.cursors.up.isDown) {
-            self.player.body.velocity.y -= 100;
+            self.player.body.velocity.y -= App.Characters.Character.globalMovementSpeed;
         }
         else if(self.cursors.down.isDown) {
-            self.player.body.velocity.y += 100;
+            self.player.body.velocity.y += App.Characters.Character.globalMovementSpeed;
         }
 
         if(self.cursors.left.isDown) {
-            self.player.body.velocity.x -= 100;
+            self.player.body.velocity.x -= App.Characters.Character.globalMovementSpeed;
         }
         else if(self.cursors.right.isDown) {
-            self.player.body.velocity.x += 100;
+            self.player.body.velocity.x += App.Characters.Character.globalMovementSpeed;
         }
 
         if(self.cursors.left.isDown) {
