@@ -87,6 +87,34 @@ App.States.Game = (function (self) {
         self.player.body.collideWorldBounds = true;
         self.player.scale.setTo(0.95);
 
+        self.player.animations.add(
+            'frontWalk',
+            self.currentChar.animations.frontWalk.frames,
+            self.currentChar.animations.frontWalk.speed,
+            true
+        );
+
+        self.player.animations.add(
+            'backWalk',
+            self.currentChar.animations.backWalk.frames,
+            self.currentChar.animations.backWalk.speed,
+            true
+        );
+
+        self.player.animations.add(
+            'leftWalk',
+            self.currentChar.animations.leftWalk.frames,
+            self.currentChar.animations.leftWalk.speed,
+            true
+        );
+
+        self.player.animations.add(
+            'rightWalk',
+            self.currentChar.animations.rightWalk.frames,
+            self.currentChar.animations.rightWalk.speed,
+            true
+        );
+
         //move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
         
@@ -99,6 +127,12 @@ App.States.Game = (function (self) {
      * Update callback
      */
     self.update = function () {
+
+        /*
+         * TODO: Factoriwe thism put the global speed in the character module
+         * TODO: put the animations set up in the same module
+         */
+
         self.player.body.velocity.y = 0;
         self.player.body.velocity.x = 0;
 
@@ -108,11 +142,48 @@ App.States.Game = (function (self) {
         else if(self.cursors.down.isDown) {
             self.player.body.velocity.y += 100;
         }
+
         if(self.cursors.left.isDown) {
             self.player.body.velocity.x -= 100;
         }
         else if(self.cursors.right.isDown) {
             self.player.body.velocity.x += 100;
+        }
+
+        if(self.cursors.left.isDown) {
+            self.player.animations.stop('frontWalk');
+            self.player.animations.stop('backWalk');
+            self.player.animations.play('leftWalk');
+            self.player.animations.stop('rightWalk');
+        }
+        else if(self.cursors.right.isDown) {
+            self.player.animations.stop('frontWalk');
+            self.player.animations.stop('backWalk');
+            self.player.animations.stop('leftWalk');
+            self.player.animations.play('rightWalk');
+        }
+        else if(self.cursors.up.isDown) {
+            self.player.animations.stop('frontWalk');
+            self.player.animations.play('backWalk');
+            self.player.animations.stop('leftWalk');
+            self.player.animations.stop('rightWalk');
+        }
+        else if(self.cursors.down.isDown) {
+            self.player.animations.play('frontWalk');
+            self.player.animations.stop('backWalk');
+            self.player.animations.stop('leftWalk');
+            self.player.animations.stop('rightWalk');
+        }
+        else if(
+            self.cursors.up.isUp
+            && self.cursors.down.isUp
+            && self.cursors.left.isUp
+            && self.cursors.right.isUp
+        ) {
+            self.player.animations.stop('frontWalk');
+            self.player.animations.stop('backWalk');
+            self.player.animations.stop('leftWalk');
+            self.player.animations.stop('rightWalk');
         }
 
         game.physics.arcade.collide(self.player, self.collisionLayer);
