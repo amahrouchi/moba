@@ -115,7 +115,7 @@ App.States.Game = (function (self) {
             true
         );
 
-        //move player with cursor keys
+        // Move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
         
         // TODO: Factorize code inside the Character module (animations, movement bindings,...)
@@ -128,10 +128,11 @@ App.States.Game = (function (self) {
      */
     self.update = function () {
 
-
+        // Reset char movement
         self.player.body.velocity.y = 0;
         self.player.body.velocity.x = 0;
 
+        // Move the char
         if(self.cursors.up.isDown) {
             self.player.body.velocity.y -= App.Characters.Character.globalMovementSpeed;
         }
@@ -146,33 +147,18 @@ App.States.Game = (function (self) {
             self.player.body.velocity.x += App.Characters.Character.globalMovementSpeed;
         }
 
-
-        /*
-         * TODO: put the animations set up in the Character module
-         */
+        // Animate the char while moving
         if(self.cursors.left.isDown) {
-            self.player.animations.stop('frontWalk');
-            self.player.animations.stop('backWalk');
-            self.player.animations.play('leftWalk');
-            self.player.animations.stop('rightWalk');
+            App.Characters.Character.animateChar(self.player, 'leftWalk');
         }
         else if(self.cursors.right.isDown) {
-            self.player.animations.stop('frontWalk');
-            self.player.animations.stop('backWalk');
-            self.player.animations.stop('leftWalk');
-            self.player.animations.play('rightWalk');
+            App.Characters.Character.animateChar(self.player, 'rightWalk');
         }
         else if(self.cursors.up.isDown) {
-            self.player.animations.stop('frontWalk');
-            self.player.animations.play('backWalk');
-            self.player.animations.stop('leftWalk');
-            self.player.animations.stop('rightWalk');
+            App.Characters.Character.animateChar(self.player, 'backWalk');
         }
         else if(self.cursors.down.isDown) {
-            self.player.animations.play('frontWalk');
-            self.player.animations.stop('backWalk');
-            self.player.animations.stop('leftWalk');
-            self.player.animations.stop('rightWalk');
+            App.Characters.Character.animateChar(self.player, 'frontWalk');
         }
         else if(
             self.cursors.up.isUp
@@ -180,10 +166,7 @@ App.States.Game = (function (self) {
             && self.cursors.left.isUp
             && self.cursors.right.isUp
         ) {
-            self.player.animations.stop('frontWalk');
-            self.player.animations.stop('backWalk');
-            self.player.animations.stop('leftWalk');
-            self.player.animations.stop('rightWalk');
+            App.Characters.Character.animateChar(self.player, 'stop');
         }
 
         game.physics.arcade.collide(self.player, self.collisionLayer);

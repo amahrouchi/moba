@@ -46,5 +46,17 @@ App.Characters.Character = (function (self) {
      */
     self.globalMovementSpeed = 100;
 
+    /**
+     * Animates the char when walking
+     * @param {object} char
+     * @param {string} animationType
+     */
+    self.animateChar = function (char, animationType) {
+        for (var type in self.animations) {
+            var action = type === animationType ? 'play' : 'stop';
+            char.animations[action](type);
+        }
+    };
+
     return self;
 })(App.Characters.Character || {});
