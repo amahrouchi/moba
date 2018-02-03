@@ -1,6 +1,6 @@
 'use strict';
 
-var App = App || {};
+var App        = App || {};
 App.Characters = App.Characters || {};
 
 App.Characters.Character = (function (self) {
@@ -23,20 +23,21 @@ App.Characters.Character = (function (self) {
      */
     self.animations = {
         frontWalk : {
-            frames : [0,1,2,3],
-            speed : 6
+            frames    : [0, 1, 2, 3],
+            speed     : 8,
+            menuSpeed : 6
         },
-        backWalk : {
-            frames : [12,13,14,15],
-            speed : 6
+        backWalk  : {
+            frames : [12, 13, 14, 15],
+            speed  : 8
         },
-        leftWalk : {
-            frames : [4,5,6,7],
-            speed : 6
+        leftWalk  : {
+            frames : [4, 5, 6, 7],
+            speed  : 8
         },
         rightWalk : {
-            frames : [8,9,10,11],
-            speed : 6
+            frames : [8, 9, 10, 11],
+            speed  : 8
         }
     };
 
@@ -58,34 +59,34 @@ App.Characters.Character = (function (self) {
         char.body.velocity.x = 0;
 
         // Move the char
-        if(cursors.up.isDown) {
+        if (cursors.up.isDown) {
             char.body.velocity.y -= globalMovementSpeed;
         }
-        else if(cursors.down.isDown) {
+        else if (cursors.down.isDown) {
             char.body.velocity.y += globalMovementSpeed;
         }
 
-        if(cursors.left.isDown) {
+        if (cursors.left.isDown) {
             char.body.velocity.x -= globalMovementSpeed;
         }
-        else if(cursors.right.isDown) {
+        else if (cursors.right.isDown) {
             char.body.velocity.x += globalMovementSpeed;
         }
 
         // Animate the char while moving
-        if(cursors.left.isDown) {
+        if (cursors.left.isDown) {
             animateChar(char, 'leftWalk');
         }
-        else if(cursors.right.isDown) {
+        else if (cursors.right.isDown) {
             animateChar(char, 'rightWalk');
         }
-        else if(cursors.up.isDown) {
+        else if (cursors.up.isDown) {
             animateChar(char, 'backWalk');
         }
-        else if(cursors.down.isDown) {
+        else if (cursors.down.isDown) {
             animateChar(char, 'frontWalk');
         }
-        else if(
+        else if (
             cursors.up.isUp
             && cursors.down.isUp
             && cursors.left.isUp

@@ -75,7 +75,7 @@ App.States.CharacterSelection = (function (self) {
             char.animations.add(
                 'walk',
                 charDetails.animations.frontWalk.frames,
-                charDetails.animations.frontWalk.speed,
+                charDetails.animations.frontWalk.menuSpeed,
                 true
             );
 
