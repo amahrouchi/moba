@@ -87,33 +87,15 @@ App.States.Game = (function (self) {
         self.player.body.collideWorldBounds = true;
         self.player.scale.setTo(0.95);
 
-        self.player.animations.add(
-            'frontWalk',
-            self.currentChar.animations.frontWalk.frames,
-            self.currentChar.animations.frontWalk.speed,
-            true
-        );
-
-        self.player.animations.add(
-            'backWalk',
-            self.currentChar.animations.backWalk.frames,
-            self.currentChar.animations.backWalk.speed,
-            true
-        );
-
-        self.player.animations.add(
-            'leftWalk',
-            self.currentChar.animations.leftWalk.frames,
-            self.currentChar.animations.leftWalk.speed,
-            true
-        );
-
-        self.player.animations.add(
-            'rightWalk',
-            self.currentChar.animations.rightWalk.frames,
-            self.currentChar.animations.rightWalk.speed,
-            true
-        );
+        // Declare animations
+        for (var type in self.currentChar.animations) {
+            self.player.animations.add(
+                type,
+                self.currentChar.animations[type].frames,
+                self.currentChar.animations[type].speed,
+                true
+            );
+        }
 
         // Move player with cursor keys
         self.cursors = game.input.keyboard.createCursorKeys();
