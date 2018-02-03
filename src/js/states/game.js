@@ -120,7 +120,6 @@ App.States.Game = (function (self) {
         
         // TODO: Factorize code inside the Character module (animations, movement bindings,...)
         // TODO: Factorize code inside the Map module (sprite retrieval, layer init,...)
-        // TODO: animate the char when moving
     };
 
     /**
@@ -128,47 +127,10 @@ App.States.Game = (function (self) {
      */
     self.update = function () {
 
-        // Reset char movement
-        self.player.body.velocity.y = 0;
-        self.player.body.velocity.x = 0;
-
         // Move the char
-        if(self.cursors.up.isDown) {
-            self.player.body.velocity.y -= App.Characters.Character.globalMovementSpeed;
-        }
-        else if(self.cursors.down.isDown) {
-            self.player.body.velocity.y += App.Characters.Character.globalMovementSpeed;
-        }
+        App.Characters.Character.moveChar(self.player, self.cursors);
 
-        if(self.cursors.left.isDown) {
-            self.player.body.velocity.x -= App.Characters.Character.globalMovementSpeed;
-        }
-        else if(self.cursors.right.isDown) {
-            self.player.body.velocity.x += App.Characters.Character.globalMovementSpeed;
-        }
-
-        // Animate the char while moving
-        if(self.cursors.left.isDown) {
-            App.Characters.Character.animateChar(self.player, 'leftWalk');
-        }
-        else if(self.cursors.right.isDown) {
-            App.Characters.Character.animateChar(self.player, 'rightWalk');
-        }
-        else if(self.cursors.up.isDown) {
-            App.Characters.Character.animateChar(self.player, 'backWalk');
-        }
-        else if(self.cursors.down.isDown) {
-            App.Characters.Character.animateChar(self.player, 'frontWalk');
-        }
-        else if(
-            self.cursors.up.isUp
-            && self.cursors.down.isUp
-            && self.cursors.left.isUp
-            && self.cursors.right.isUp
-        ) {
-            App.Characters.Character.animateChar(self.player, 'stop');
-        }
-
+        // Init collision layer
         game.physics.arcade.collide(self.player, self.collisionLayer);
     };
 
